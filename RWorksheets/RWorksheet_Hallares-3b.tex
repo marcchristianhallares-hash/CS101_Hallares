@@ -1,0 +1,133 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={RWorksheet\_Hallares\#3b},
+  pdfauthor={Marc Christian P. Hallares},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{RWorksheet\_Hallares\#3b}
+\author{Marc Christian P. Hallares}
+\date{2025-10-16}
+
+\begin{document}
+\maketitle
+
+\section{a. Write the codes to create the data
+frame}\label{a.-write-the-codes-to-create-the-data-frame}
+
+\section{Creating the data frame}\label{creating-the-data-frame}
+
+df \textless- data.frame( Respondents = 1:20, Sex =
+c(2,2,1,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,1,2), Fathers\_Occupation =
+c(1,3,3,3,1,2,3,1,1,1,3,2,1,3,3,1,3,1,2,1), Persons\_at\_Home =
+c(5,7,3,8,5,9,6,7,8,4,7,5,4,7,8,8,3,11,7,6), Siblings\_at\_School =
+c(6,4,4,1,2,1,5,3,1,2,3,2,5,5,2,1,2,5,3,2), Types\_of\_Houses =
+c(1,2,3,1,1,3,3,1,2,3,2,3,2,2,3,3,3,3,3,2) )
+
+\section{b. Describe the data (structure and
+summary)}\label{b.-describe-the-data-structure-and-summary}
+
+str(df) summary(df)
+
+\section{c.~Is the mean number of siblings attending school
+5?}\label{c.-is-the-mean-number-of-siblings-attending-school-5}
+
+mean\_siblings \textless- mean(df\$Siblings\_at\_School) mean\_siblings
+== 5\\
+mean\_siblings
+
+\section{d.~Extract the first two rows and all
+columns}\label{d.-extract-the-first-two-rows-and-all-columns}
+
+df{[}1:2, {]} \# Output: Respondents Sex Fathers\_Occupation
+Persons\_at\_Home Siblings\_at\_School Types\_of\_Houses 1 1 2 1 5 6 1 2
+2 2 3 7 4 2
+
+\section{e. Extract 3rd and 5th row, 2nd and 4th
+column}\label{e.-extract-3rd-and-5th-row-2nd-and-4th-column}
+
+df{[}c(3,5), c(2,4){]} \# Output: Sex Persons\_at\_Home 3 1 3 5 2 5
+
+\section{f.~Select variable Types\_of\_Houses and store it as
+types\_houses}\label{f.-select-variable-types_of_houses-and-store-it-as-types_houses}
+
+types\_houses \textless- df\$Types\_of\_Houses types\_houses
+
+\section{g. Select all Male respondents whose father's occupation was
+Farmer}\label{g.-select-all-male-respondents-whose-fathers-occupation-was-farmer}
+
+df{[}df\(Sex == 1 & df\)Fathers\_Occupation == 1, {]} \# Output:
+Respondents Sex Fathers\_Occupation Persons\_at\_Home
+Siblings\_at\_School Types\_of\_Houses 19 19 1 2 7 3 3 Correction:
+There's no Male respondents with Farmer father based on this data \#
+Final Output: Empty DataFrame
+
+\section{h. Select all Female respondents with ≥5 siblings at
+school}\label{h.-select-all-female-respondents-with-5-siblings-at-school}
+
+df{[}df\(Sex == 2 & df\)Siblings\_at\_School \textgreater= 5, {]} \#
+Output: Respondents Sex Fathers\_Occupation Persons\_at\_Home
+Siblings\_at\_School Types\_of\_Houses 1 1 2 1 5 6 1 7 7 2 3 6 5 3 13 13
+2 1 4 5 2 14 14 2 3 7 5 2 18 18 2 1 11 5 3
+
+\end{document}

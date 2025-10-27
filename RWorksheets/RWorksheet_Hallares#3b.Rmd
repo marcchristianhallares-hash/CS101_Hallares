@@ -1,0 +1,103 @@
+---
+title: "RWorksheet_Hallares#3b"
+author: "Marc Christian P. Hallares"
+date: "2025-10-20"
+output: pdf_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# a. Write the codes to create the data frame
+# Creating the data frame
+df <- data.frame(
+  Respondents = 1:20,
+  Sex = c(2,2,1,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,1,2),
+  Fathers_Occupation = c(1,3,3,3,1,2,3,1,1,1,3,2,1,3,3,1,3,1,2,1),
+  Persons_at_Home = c(5,7,3,8,5,9,6,7,8,4,7,5,4,7,8,8,3,11,7,6),
+  Siblings_at_School = c(6,4,4,1,2,1,5,3,1,2,3,2,5,5,2,1,2,5,3,2),
+  Types_of_Houses = c(1,2,3,1,1,3,3,1,2,3,2,3,2,2,3,3,3,3,3,2)
+)
+
+# b. Describe the data (structure and summary)
+str(df)
+summary(df)
+
+# c. Is the mean number of siblings attending school 5?
+mean_siblings <- mean(df$Siblings_at_School)
+mean_siblings == 5  
+mean_siblings        
+
+# d. Extract the first two rows and all columns
+df[1:2, ]
+
+# e. Extract 3rd and 5th row, 2nd and 4th column
+df[c(3,5), c(2,4)]
+
+# f. Select variable Types_of_Houses and store it as types_houses
+types_houses <- df$Types_of_Houses
+types_houses
+
+# g. Select all Male respondents whose father's occupation was Farmer
+df[df$Sex == 1 & df$Fathers_Occupation == 1, ]
+
+# h. Select all Female respondents with ≥5 siblings at school 
+df[df$Sex == 2 & df$Siblings_at_School >= 5, ]
+
+# 2. Create an empty data frame
+df = data.frame(
+  Ints = integer(),
+  Doubles = double(),
+  Characters = character(),
+  Logicals = logical(),
+  Factors = factor(),
+  stringsAsFactors = FALSE
+)
+
+print("Structure of the empty dataframe:")
+print(str(df))
+
+# 3. Create and Import the CSV File
+# a. Create the CSV File
+HouseholdData <- data.frame(
+  Respondents = 1:10,
+  Sex = c("Male","Female","Female","Male","Male","Female","Female","Male","Female","Male"),
+  FathersOccupation = c(1,2,3,3,1,2,2,3,1,3),
+  PersonsAtHome = c(1,2,3,3,1,2,2,3,1,3),
+  SiblingsAtSchool = c(5,7,0,8,2,4,1,2,11,6),
+  TypesOfHouses = c("Wood","Congrete","Congrete","Wood","Semi-congrete","Semi-congrete","Wood","Semi-congrete","Semi-congrete","Congrete")
+)
+
+write.csv(HouseholdData, "HouseholdData.csv", row.names = FALSE)
+
+# Import the CSV File
+data <- read.csv("HouseholdData.csv")
+print(data)
+
+# b. Convert Sex to Factor and then Integer
+data$Sex <- factor(data$Sex, levels = c("Male", "Female"), labels = c(1, 2))
+data$Sex <- as.integer(as.character(data$Sex))
+print(data$Sex)
+
+# c. Convert TypesOfHouses to Factor and Integer
+data$TypesOfHouses <- factor(data$TypesOfHouses,
+                             levels = c("Wood", "Congrete", "Semi-congrete"),
+                             labels = c(1, 2, 3))
+data$TypesOfHouses <- as.integer(as.character(data$TypesOfHouses))
+print(data$TypesOfHouses)
+
+# d. Factor FathersOccupation
+data$FathersOccupation <- factor(data$FathersOccupation,
+                                 levels = c(1, 2, 3),
+                                 labels = c("Farmer", "Driver", "Others"))
+print(data$FathersOccupation)
+
+# e. Select all Female respondents whose father's occupation is Driver
+female_driver <- subset(data, Sex == 2 & FathersOccupation == "Driver")
+female_driver
+
+# f. Select respondents with ≥5 siblings at school
+siblings_5plus <- subset(data, SiblingsAtSchool >= 5)
+siblings_5plus
+
+# 4. Interpretation
+# Based on the sentiment analysis chart showing tweets per day from July 14-21, 2020, the data reveals notable fluctuations in public sentiment throughout the week. July 15th stands out as a particularly significant day, recording the highest volume of negative tweets at over 4,000, which suggests a major event or controversy sparked strong public disapproval. In contrast, July 21st shows a shift in sentiment with positive tweets reaching their peak at around 3,400, indicating improved public perception or perhaps a positive development that resonated with users. Neutral sentiment remains relatively stable throughout the period, ranging between 1,500 and 2,800 tweets daily, suggesting a consistent baseline of moderate opinions. The pattern demonstrates how quickly online sentiment can shift, with negative sentiment dominating early in the week before gradually giving way to more positive reactions by week's end. This volatility in tweet sentiment likely reflects real-time public reactions to unfolding news, events, or discussions during this specific week in July 2020.
