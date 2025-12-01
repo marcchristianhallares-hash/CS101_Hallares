@@ -1,0 +1,498 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={RWorksheet\_Hallares\#3b},
+  pdfauthor={Marc Christian P. Hallares},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{RWorksheet\_Hallares\#3b}
+\author{Marc Christian P. Hallares}
+\date{2025-10-20}
+
+\begin{document}
+\maketitle
+
+\section{Exercise 1: Create a data
+frame}\label{exercise-1-create-a-data-frame}
+
+\subsection{a. Write the codes}\label{a.-write-the-codes}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{household }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Sex =} \FunctionTok{c}\NormalTok{(}\StringTok{"Male"}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{, }\StringTok{"Male"}\NormalTok{,}
+          \StringTok{"Female"}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{,}
+          \StringTok{"Male"}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{,}
+          \StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{),}
+  
+  \AttributeTok{Fathers\_Occupation =} \FunctionTok{c}\NormalTok{(}\StringTok{"Farmer"}\NormalTok{, }\StringTok{"Driver"}\NormalTok{, }\StringTok{"Others"}\NormalTok{, }\StringTok{"Farmer"}\NormalTok{, }\StringTok{"Driver"}\NormalTok{,}
+                         \StringTok{"Farmer"}\NormalTok{, }\StringTok{"Others"}\NormalTok{, }\StringTok{"Driver"}\NormalTok{, }\StringTok{"Farmer"}\NormalTok{, }\StringTok{"Others"}\NormalTok{,}
+                         \StringTok{"Driver"}\NormalTok{, }\StringTok{"Farmer"}\NormalTok{, }\StringTok{"Driver"}\NormalTok{, }\StringTok{"Others"}\NormalTok{, }\StringTok{"Farmer"}\NormalTok{,}
+                         \StringTok{"Driver"}\NormalTok{, }\StringTok{"Others"}\NormalTok{, }\StringTok{"Farmer"}\NormalTok{, }\StringTok{"Driver"}\NormalTok{, }\StringTok{"Others"}\NormalTok{),}
+  
+  \AttributeTok{Persons\_at\_Home =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{5}\NormalTok{,}
+                      \DecValTok{8}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{4}\NormalTok{,}
+                      \DecValTok{6}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{5}\NormalTok{,}
+                      \DecValTok{6}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{),}
+  
+  \AttributeTok{Siblings\_at\_school =} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{4}\NormalTok{,}
+                         \DecValTok{7}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{,}
+                         \DecValTok{6}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{4}\NormalTok{,}
+                         \DecValTok{6}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{),}
+  
+  \AttributeTok{Type\_of\_House =} \FunctionTok{c}\NormalTok{(}\StringTok{"Wood"}\NormalTok{, }\StringTok{"Concrete"}\NormalTok{, }\StringTok{"Semi{-}Concrete"}\NormalTok{, }\StringTok{"Wood"}\NormalTok{, }\StringTok{"Concrete"}\NormalTok{,}
+                    \StringTok{"Wood"}\NormalTok{, }\StringTok{"Semi{-}Concrete"}\NormalTok{, }\StringTok{"Concrete"}\NormalTok{, }\StringTok{"Wood"}\NormalTok{, }\StringTok{"Semi{-}Concrete"}\NormalTok{,}
+                    \StringTok{"Concrete"}\NormalTok{, }\StringTok{"Wood"}\NormalTok{, }\StringTok{"Semi{-}Concrete"}\NormalTok{, }\StringTok{"Concrete"}\NormalTok{, }\StringTok{"Wood"}\NormalTok{,}
+                    \StringTok{"Semi{-}Concrete"}\NormalTok{, }\StringTok{"Concrete"}\NormalTok{, }\StringTok{"Wood"}\NormalTok{, }\StringTok{"Concrete"}\NormalTok{, }\StringTok{"Semi{-}Concrete"}\NormalTok{)}
+\NormalTok{)}
+
+\NormalTok{household}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Sex Fathers_Occupation Persons_at_Home Siblings_at_school Type_of_House
+## 1    Male             Farmer               5                  3          Wood
+## 2  Female             Driver               6                  5      Concrete
+## 3  Female             Others               4                  2 Semi-Concrete
+## 4    Male             Farmer               7                  6          Wood
+## 5    Male             Driver               5                  4      Concrete
+## 6  Female             Farmer               8                  7          Wood
+## 7  Female             Others               3                  3 Semi-Concrete
+## 8    Male             Driver               6                  5      Concrete
+## 9  Female             Farmer               5                  4          Wood
+## 10   Male             Others               4                  2 Semi-Concrete
+## 11   Male             Driver               6                  6      Concrete
+## 12 Female             Farmer               5                  5          Wood
+## 13   Male             Driver               4                  3 Semi-Concrete
+## 14 Female             Others               7                  7      Concrete
+## 15   Male             Farmer               5                  4          Wood
+## 16 Female             Driver               6                  6 Semi-Concrete
+## 17   Male             Others               5                  5      Concrete
+## 18 Female             Farmer               4                  4          Wood
+## 19 Female             Driver               3                  2      Concrete
+## 20   Male             Others               4                  3 Semi-Concrete
+\end{verbatim}
+
+\subsection{b. Describe the data}\label{b.-describe-the-data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(household)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    20 obs. of  5 variables:
+##  $ Sex               : chr  "Male" "Female" "Female" "Male" ...
+##  $ Fathers_Occupation: chr  "Farmer" "Driver" "Others" "Farmer" ...
+##  $ Persons_at_Home   : num  5 6 4 7 5 8 3 6 5 4 ...
+##  $ Siblings_at_school: num  3 5 2 6 4 7 3 5 4 2 ...
+##  $ Type_of_House     : chr  "Wood" "Concrete" "Semi-Concrete" "Wood" ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(household)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Sex            Fathers_Occupation Persons_at_Home Siblings_at_school
+##  Length:20          Length:20          Min.   :3.0     Min.   :2.00      
+##  Class :character   Class :character   1st Qu.:4.0     1st Qu.:3.00      
+##  Mode  :character   Mode  :character   Median :5.0     Median :4.00      
+##                                        Mean   :5.1     Mean   :4.30      
+##                                        3rd Qu.:6.0     3rd Qu.:5.25      
+##                                        Max.   :8.0     Max.   :7.00      
+##  Type_of_House     
+##  Length:20         
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+## 
+\end{verbatim}
+
+\subsection{c.~Is the mean number of siblings
+5?}\label{c.-is-the-mean-number-of-siblings-5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean\_siblings }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(household}\SpecialCharTok{$}\NormalTok{Siblings\_at\_school)}
+\NormalTok{mean\_siblings}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean\_siblings }\SpecialCharTok{==} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\subsection{d.~Extract first two rows}\label{d.-extract-first-two-rows}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{household[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Sex Fathers_Occupation Persons_at_Home Siblings_at_school Type_of_House
+## 1   Male             Farmer               5                  3          Wood
+## 2 Female             Driver               6                  5      Concrete
+\end{verbatim}
+
+\subsection{e. Extract 3rd and 5th row, 2nd and 4th
+column}\label{e.-extract-3rd-and-5th-row-2nd-and-4th-column}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{household[}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{5}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Fathers_Occupation Siblings_at_school
+## 3             Others                  2
+## 5             Driver                  4
+\end{verbatim}
+
+\subsection{f.~Store types of houses}\label{f.-store-types-of-houses}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{types\_houses }\OtherTok{\textless{}{-}}\NormalTok{ household}\SpecialCharTok{$}\NormalTok{Type\_of\_House}
+\NormalTok{types\_houses}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "Wood"          "Concrete"      "Semi-Concrete" "Wood"         
+##  [5] "Concrete"      "Wood"          "Semi-Concrete" "Concrete"     
+##  [9] "Wood"          "Semi-Concrete" "Concrete"      "Wood"         
+## [13] "Semi-Concrete" "Concrete"      "Wood"          "Semi-Concrete"
+## [17] "Concrete"      "Wood"          "Concrete"      "Semi-Concrete"
+\end{verbatim}
+
+\subsection{g. Select male respondents whose father is
+Farmer}\label{g.-select-male-respondents-whose-father-is-farmer}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subset\_males\_farmer }\OtherTok{\textless{}{-}}\NormalTok{ household[household}\SpecialCharTok{$}\NormalTok{Sex }\SpecialCharTok{==} \StringTok{"Male"} \SpecialCharTok{\&}\NormalTok{ household}\SpecialCharTok{$}\NormalTok{Fathers\_Occupation }\SpecialCharTok{==} \StringTok{"Farmer"}\NormalTok{, ]}
+\NormalTok{subset\_males\_farmer}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Sex Fathers_Occupation Persons_at_Home Siblings_at_school Type_of_House
+## 1  Male             Farmer               5                  3          Wood
+## 4  Male             Farmer               7                  6          Wood
+## 15 Male             Farmer               5                  4          Wood
+\end{verbatim}
+
+\subsection{\texorpdfstring{h. Select female respondents with (\ge)5
+siblings}{h. Select female respondents with ()5 siblings}}\label{h.-select-female-respondents-with-5-siblings}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subset\_female\_siblings5 }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(household, Sex }\SpecialCharTok{==} \StringTok{"Female"} \SpecialCharTok{\&}\NormalTok{ Siblings\_at\_school }\SpecialCharTok{\textgreater{}=} \DecValTok{5}\NormalTok{)}
+\NormalTok{subset\_female\_siblings5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Sex Fathers_Occupation Persons_at_Home Siblings_at_school Type_of_House
+## 2  Female             Driver               6                  5      Concrete
+## 6  Female             Farmer               8                  7          Wood
+## 12 Female             Farmer               5                  5          Wood
+## 14 Female             Others               7                  7      Concrete
+## 16 Female             Driver               6                  6 Semi-Concrete
+\end{verbatim}
+
+\section{Exercise 2: Create an empty data
+frame}\label{exercise-2-create-an-empty-data-frame}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Ints =} \FunctionTok{integer}\NormalTok{(),}
+  \AttributeTok{Doubles =} \FunctionTok{double}\NormalTok{(),}
+  \AttributeTok{Characters =} \FunctionTok{character}\NormalTok{(),}
+  \AttributeTok{Logicals =} \FunctionTok{logical}\NormalTok{(),}
+  \AttributeTok{Factors =} \FunctionTok{factor}\NormalTok{(),}
+  \AttributeTok{stringsAsFactors =} \ConstantTok{FALSE}
+\NormalTok{)}
+
+\FunctionTok{str}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    0 obs. of  5 variables:
+##  $ Ints      : int 
+##  $ Doubles   : num 
+##  $ Characters: chr 
+##  $ Logicals  : logi 
+##  $ Factors   : Factor w/ 0 levels:
+\end{verbatim}
+
+\section{Exercise 3: CSV operations}\label{exercise-3-csv-operations}
+
+\subsection{a. Save and import CSV}\label{a.-save-and-import-csv}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{write.csv}\NormalTok{(household, }\StringTok{"HouseholdData.csv"}\NormalTok{, }\AttributeTok{row.names =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"HouseholdData.csv"}\NormalTok{)}
+\NormalTok{data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Sex Fathers_Occupation Persons_at_Home Siblings_at_school Type_of_House
+## 1    Male             Farmer               5                  3          Wood
+## 2  Female             Driver               6                  5      Concrete
+## 3  Female             Others               4                  2 Semi-Concrete
+## 4    Male             Farmer               7                  6          Wood
+## 5    Male             Driver               5                  4      Concrete
+## 6  Female             Farmer               8                  7          Wood
+## 7  Female             Others               3                  3 Semi-Concrete
+## 8    Male             Driver               6                  5      Concrete
+## 9  Female             Farmer               5                  4          Wood
+## 10   Male             Others               4                  2 Semi-Concrete
+## 11   Male             Driver               6                  6      Concrete
+## 12 Female             Farmer               5                  5          Wood
+## 13   Male             Driver               4                  3 Semi-Concrete
+## 14 Female             Others               7                  7      Concrete
+## 15   Male             Farmer               5                  4          Wood
+## 16 Female             Driver               6                  6 Semi-Concrete
+## 17   Male             Others               5                  5      Concrete
+## 18 Female             Farmer               4                  4          Wood
+## 19 Female             Driver               3                  2      Concrete
+## 20   Male             Others               4                  3 Semi-Concrete
+\end{verbatim}
+
+\subsection{b. Convert Sex to factor and integer (Male = 1, Female =
+2)}\label{b.-convert-sex-to-factor-and-integer-male-1-female-2}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Sex }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Sex, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Male"}\NormalTok{, }\StringTok{"Female"}\NormalTok{), }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Sex }\OtherTok{\textless{}{-}} \FunctionTok{as.integer}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Sex))}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Sex}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 1 2 2 1 1 2 2 1 2 1 1 2 1 2 1 2 1 2 2 1
+\end{verbatim}
+
+\subsection{c.~Convert Type\_of\_House to factor and integer (Wood=1,
+Concrete=2,
+Semi-Concrete=3)}\label{c.-convert-type_of_house-to-factor-and-integer-wood1-concrete2-semi-concrete3}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Type\_of\_House }\OtherTok{\textless{}{-}} \FunctionTok{trimws}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Type\_of\_House)}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Type\_of\_House }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Type\_of\_House,}
+                             \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Wood"}\NormalTok{, }\StringTok{"Concrete"}\NormalTok{, }\StringTok{"Semi{-}Concrete"}\NormalTok{),}
+                             \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Type\_of\_House }\OtherTok{\textless{}{-}} \FunctionTok{as.integer}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Type\_of\_House))}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Type\_of\_House}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 1 2 3 1 2 1 3 2 1 3 2 1 3 2 1 3 2 1 2 3
+\end{verbatim}
+
+\subsection{d.~Convert Fathers\_Occupation to factor and integer
+(Farmer=1, Driver=2,
+Others=3)}\label{d.-convert-fathers_occupation-to-factor-and-integer-farmer1-driver2-others3}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Fathers\_Occupation }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Fathers\_Occupation,}
+                                  \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Farmer"}\NormalTok{, }\StringTok{"Driver"}\NormalTok{, }\StringTok{"Others"}\NormalTok{),}
+                                  \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Fathers\_Occupation }\OtherTok{\textless{}{-}} \FunctionTok{as.integer}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Fathers\_Occupation))}
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{Fathers\_Occupation}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 1 2 3 1 2 1 3 2 1 3 2 1 2 3 1 2 3 1 2 3
+\end{verbatim}
+
+\subsection{e. Select females whose father is a
+driver}\label{e.-select-females-whose-father-is-a-driver}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{female\_driver }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(data, Sex }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\&}\NormalTok{ Fathers\_Occupation }\SpecialCharTok{==} \DecValTok{2}\NormalTok{)}
+\NormalTok{female\_driver}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Sex Fathers_Occupation Persons_at_Home Siblings_at_school Type_of_House
+## 2    2                  2               6                  5             2
+## 16   2                  2               6                  6             3
+## 19   2                  2               3                  2             2
+\end{verbatim}
+
+\subsection{f.~Select respondents with ≥5
+siblings}\label{f.-select-respondents-with-5-siblings}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{siblings\_5plus }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(data, Siblings\_at\_school }\SpecialCharTok{\textgreater{}=} \DecValTok{5}\NormalTok{)}
+\NormalTok{siblings\_5plus}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Sex Fathers_Occupation Persons_at_Home Siblings_at_school Type_of_House
+## 2    2                  2               6                  5             2
+## 4    1                  1               7                  6             1
+## 6    2                  1               8                  7             1
+## 8    1                  2               6                  5             2
+## 11   1                  2               6                  6             2
+## 12   2                  1               5                  5             1
+## 14   2                  3               7                  7             2
+## 16   2                  2               6                  6             3
+## 17   1                  3               5                  5             2
+\end{verbatim}
+
+\section{Exercise 4: Interpretation}\label{exercise-4-interpretation}
+
+Based on the sentiment analysis chart showing tweets per day from July
+14--21, 2020, the data reveals notable fluctuations in public sentiment
+throughout the week. July 15th stands out as a significant day,
+recording the highest volume of negative tweets at over 4,000,
+suggesting a major event or controversy that sparked public disapproval.
+
+In contrast, July 21st shows a shift in sentiment with positive tweets
+reaching their peak at around 3,400, indicating improved public
+perception or a positive development.
+
+Neutral sentiment remains relatively stable throughout the period,
+ranging between 1,500 and 2,800 tweets daily.
+
+This pattern demonstrates how quickly online sentiment can
+shift---negative sentiment dominates early in the week and gradually
+gives way to more positive reactions by the end of the week, likely
+reflecting real-time reactions to unfolding news or events. ````
+
+\end{document}

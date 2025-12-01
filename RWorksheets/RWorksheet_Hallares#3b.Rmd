@@ -1,0 +1,159 @@
+---
+title: "RWorksheet_Hallares#3b"
+author: "Marc Christian P. Hallares"
+date: "2025-10-20"
+output: pdf_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Exercise 1: Create a data frame
+
+## a. Write the codes
+```{r}
+household <- data.frame(
+  Sex = c("Male", "Female", "Female", "Male", "Male",
+          "Female", "Female", "Male", "Female", "Male",
+          "Male", "Female", "Male", "Female", "Male",
+          "Female", "Male", "Female", "Female", "Male"),
+  
+  Fathers_Occupation = c("Farmer", "Driver", "Others", "Farmer", "Driver",
+                         "Farmer", "Others", "Driver", "Farmer", "Others",
+                         "Driver", "Farmer", "Driver", "Others", "Farmer",
+                         "Driver", "Others", "Farmer", "Driver", "Others"),
+  
+  Persons_at_Home = c(5, 6, 4, 7, 5,
+                      8, 3, 6, 5, 4,
+                      6, 5, 4, 7, 5,
+                      6, 5, 4, 3, 4),
+  
+  Siblings_at_school = c(3, 5, 2, 6, 4,
+                         7, 3, 5, 4, 2,
+                         6, 5, 3, 7, 4,
+                         6, 5, 4, 2, 3),
+  
+  Type_of_House = c("Wood", "Concrete", "Semi-Concrete", "Wood", "Concrete",
+                    "Wood", "Semi-Concrete", "Concrete", "Wood", "Semi-Concrete",
+                    "Concrete", "Wood", "Semi-Concrete", "Concrete", "Wood",
+                    "Semi-Concrete", "Concrete", "Wood", "Concrete", "Semi-Concrete")
+)
+
+household
+```
+
+## b. Describe the data
+```{r}
+str(household)
+summary(household)
+```
+
+## c. Is the mean number of siblings 5?
+```{r}
+mean_siblings <- mean(household$Siblings_at_school)
+mean_siblings
+mean_siblings == 5
+```
+
+## d. Extract first two rows
+```{r}
+household[1:2, ]
+```
+
+## e. Extract 3rd and 5th row, 2nd and 4th column
+```{r}
+household[c(3,5), c(2,4)]
+```
+
+## f. Store types of houses
+```{r}
+types_houses <- household$Type_of_House
+types_houses
+```
+
+## g. Select male respondents whose father is Farmer
+```{r}
+subset_males_farmer <- household[household$Sex == "Male" & household$Fathers_Occupation == "Farmer", ]
+subset_males_farmer
+```
+
+## h. Select female respondents with \(\ge\)5 siblings 
+```{r}
+subset_female_siblings5 <- subset(household, Sex == "Female" & Siblings_at_school >= 5)
+subset_female_siblings5
+```
+
+# Exercise 2: Create an empty data frame
+
+```{r}
+df <- data.frame(
+  Ints = integer(),
+  Doubles = double(),
+  Characters = character(),
+  Logicals = logical(),
+  Factors = factor(),
+  stringsAsFactors = FALSE
+)
+
+str(df)
+```
+
+# Exercise 3: CSV operations
+
+## a. Save and import CSV
+```{r}
+write.csv(household, "HouseholdData.csv", row.names = FALSE)
+data <- read.csv("HouseholdData.csv")
+data
+```
+
+## b. Convert Sex to factor and integer (Male = 1, Female = 2)
+```{r}
+data$Sex <- factor(data$Sex, levels = c("Male", "Female"), labels = c(1, 2))
+data$Sex <- as.integer(as.character(data$Sex))
+data$Sex
+```
+
+## c. Convert Type_of_House to factor and integer (Wood=1, Concrete=2, Semi-Concrete=3)
+```{r}
+data$Type_of_House <- trimws(data$Type_of_House)
+data$Type_of_House <- factor(data$Type_of_House,
+                             levels = c("Wood", "Concrete", "Semi-Concrete"),
+                             labels = c(1, 2, 3))
+data$Type_of_House <- as.integer(as.character(data$Type_of_House))
+data$Type_of_House
+```
+
+## d. Convert Fathers_Occupation to factor and integer (Farmer=1, Driver=2, Others=3)
+```{r}
+data$Fathers_Occupation <- factor(data$Fathers_Occupation,
+                                  levels = c("Farmer", "Driver", "Others"),
+                                  labels = c(1, 2, 3))
+data$Fathers_Occupation <- as.integer(as.character(data$Fathers_Occupation))
+data$Fathers_Occupation
+```
+
+## e. Select females whose father is a driver
+```{r}
+female_driver <- subset(data, Sex == 2 & Fathers_Occupation == 2)
+female_driver
+```
+
+## f. Select respondents with ≥5 siblings
+```{r}
+siblings_5plus <- subset(data, Siblings_at_school >= 5)
+siblings_5plus
+```
+
+# Exercise 4: Interpretation
+
+Based on the sentiment analysis chart showing tweets per day from July 14–21, 2020, the data reveals notable fluctuations in public sentiment throughout the week. July 15th stands out as a significant day, recording the highest volume of negative tweets at over 4,000, suggesting a major event or controversy that sparked public disapproval.
+
+In contrast, July 21st shows a shift in sentiment with positive tweets reaching their peak at around 3,400, indicating improved public perception or a positive development.
+
+Neutral sentiment remains relatively stable throughout the period, ranging between 1,500 and 2,800 tweets daily.
+
+This pattern demonstrates how quickly online sentiment can shift—negative sentiment dominates early in the week and gradually gives way to more positive reactions by the end of the week, likely reflecting real-time reactions to unfolding news or events.
+````
+
+
