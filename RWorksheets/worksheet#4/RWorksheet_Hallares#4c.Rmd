@@ -1,0 +1,247 @@
+---
+title: "RWorksheet_Hallares#4c"
+author: "Marc Christian P. Hallares"
+date: "2025-12-16"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(RColorBrewer)
+library(readxl)
+```
+
+```{r}
+# 1A. Import CSV file into the environment
+# Import the mpg dataset from CSV
+MPG <- read.csv("MPG.csv", stringsAsFactors = FALSE)
+
+MPG
+```
+
+```{r}
+# 1B. Identify categorical variables
+data(MPG)
+
+write.csv(MPG, "MPG.csv", row.names = FALSE)
+```
+
+```{r}
+# 1C. Identify continuous variables
+str(MPG)
+
+# All numeric are continuous
+```
+
+```{r}
+# 2A. Count how many unique models each manufacturer has
+unique_models <- MPG %>%
+  group_by(manufacturer) %>%
+  summarise(unique_models = n_distinct(model)) %>%
+  arrange(desc(unique_models))
+
+unique_models
+```
+
+```{r}
+# 2B. Barplot of number of unique models per manufacturer
+ggplot(unique_models, aes(x = reorder(manufacturer, -unique_models), 
+                          y = unique_models)) +
+  geom_bar(stat = "identity", fill = "darkgreen") +
+  xlab("Manufacturer") + 
+  ylab("Number of Unique Models") +
+  ggtitle("Number of Unique Models by Manufacturer") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+# 2A (alternative visualization). Scatter plot of manufacturers vs. their models
+ggplot(MPG, aes(x = reorder(manufacturer, model, function(x) length(unique(x))), 
+                y = model)) +
+  geom_point(color = "orange") +
+  xlab("Manufacturer") + 
+  ylab("Model") +
+  ggtitle("Manufacturers vs. Models") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+# 2B 
+# The barplot is more effective because it clearly displays the exact count for each manufacturer, making comparisons easier at a glance.
+```
+
+```{r}
+# 3. Scatter plot of the first 20 rows showing model vs. year
+top_20 <- head(MPG, 20)
+
+ggplot(top_20, aes(x = model, y = year)) +
+  geom_point(color = "red", size = 3) +
+  xlab("Model") + 
+  ylab("Year") +
+  ggtitle("Model vs. Year (First 20 Rows)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+# 4. Count how many entries each car model has
+model_counts <- MPG %>%
+  group_by(model) %>%
+  summarise(count = n()) %>%
+  arrange(desc(count))
+
+model_counts
+```
+
+```{r}
+# 4A. Top 20 car models with the highest number of entries
+top_20_models <- MPG %>%
+  group_by(model) %>%
+  summarise(count = n()) %>%
+  arrange(desc(count)) %>%
+  head(20)
+
+ggplot(top_20_models, aes(x = reorder(model, -count), y = count, fill = model)) +
+  geom_bar(stat = "identity") +
+  xlab("Model") + 
+  ylab("Number of Cars") +
+  ggtitle("Top 20 Car Models by Number of Cars") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        legend.position = "none") +
+  scale_fill_manual(values = colorRampPalette(brewer.pal(12, "Set3"))(20))
+```
+
+```{r}
+# 5. Relationship between number of cylinders and engine displacement
+ggplot(MPG, aes(x = cyl, y = displ, color = displ)) +
+  geom_point(size = 2) +
+  ggtitle("Relationship between No. of Cylinders and Engine Displacement") +
+  xlab("Number of Cylinders") + 
+  ylab("Engine Displacement") +
+  scale_color_gradient(low = "lightblue", high = "darkblue")
+```
+
+```{r}
+# 5A
+# There is a positive relationship: as the number of cylinders increases, the engine displacement also increases.
+```
+
+```{r}
+# 6. Scatter plot: Engine displacement vs. Highway MPG
+ggplot(MPG, aes(x = displ, y = hwy, color = displ)) +
+  geom_point(size = 2) +
+  ggtitle("Relationship between Engine Displacement and Highway MPG") +
+  xlab("Engine Displacement (L)") + 
+  ylab("Highway MPG") +
+  scale_color_gradient(low = "lightgreen", high = "darkgreen")
+```
+
+```{r}
+# 6. Create traffic dataset
+traffic_data <- data.frame(
+  Date = as.Date('2025-11-01') + 0:9,
+  Location = rep(c("Intersection A", "Intersection B"), each = 5),
+  Vehicles = c(125, 148, 132, 157, 142, 198, 208, 195, 212, 218),
+  Average_Speed = c(34.8, 33.9, 35.2, 33.5, 34.1, 31.8, 31.2, 32.5, 30.9, 29.8)
+)
+
+write.csv(traffic_data, "traffic.csv", row.names = FALSE)
+
+traffic <- read.csv("traffic.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# 6A. Structure of the traffic dataset
+str(traffic)
+```
+
+```{r}
+# 6B. Separating traffic data by location
+intersection_a <- traffic[traffic$Location == "Intersection A", ]
+intersection_b <- traffic[traffic$Location == "Intersection B", ]
+
+print("Intersection A Data:")
+print(intersection_a)
+
+print("Intersection B Data:")
+print(intersection_b)
+```
+
+```{r}
+# 6C. Line graph showing number of vehicles over time by intersection
+ggplot(traffic, aes(x = as.Date(Date), y = Vehicles, color = Location, group = Location)) +
+  geom_line(size = 1) +
+  geom_point(size = 2) +
+  xlab("Date") + 
+  ylab("Number of Vehicles") +
+  ggtitle("Traffic Over Time by Intersection") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+#7A. Import and count rows & columns
+library(readxl)
+
+Alexa <- read_excel("alexa_file.xlsx")
+
+# Number of observations (rows)
+cat("Number of rows:", nrow(Alexa), "\n")
+
+# Number of columns
+cat("Number of columns:", ncol(Alexa))
+```
+
+```{r}
+#7B. Plot variations using ggplot()
+variation_totals <- Alexa %>%
+  group_by(variation) %>%
+  summarise(total = n()) %>%
+  arrange(desc(total))
+
+variation_totals
+```
+
+```{r}
+#7C. Plot variations using ggplot()
+ggplot(variation_totals, aes(x = reorder(variation, -total), y = total)) +
+  geom_bar(stat = "identity", fill = "darkred") +
+  xlab("Variation") +
+  ylab("Total Count") +
+  ggtitle("Total Reviews per Product Variation") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+#7D. Line graph: Date vs Number of Verified Reviews
+ggplot(Alexa, aes(x = date, y = verified_reviews)) +
+  geom_line(color = "purple", size = 1) +
+  xlab("Date") +
+  ylab("Verified Reviews") +
+  ggtitle("Trend of Verified Reviews Over Time")
+```
+
+```{r}
+#7E. Relationship between variation and rating
+
+# Variation
+variation_rating <- Alexa %>%
+  group_by(variation) %>%
+  summarise(avg_rating = mean(rating, na.rm = TRUE)) %>%
+  arrange(desc(avg_rating))
+
+variation_rating
+```
+
+```{r}
+# Rating
+ggplot(variation_rating, aes(x = reorder(variation, -avg_rating), y = avg_rating)) +
+  geom_bar(stat = "identity", fill = "darkorange") +
+  xlab("Variation") +
+  ylab("Average Rating") +
+  ggtitle("Average Rating per Product Variation") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
